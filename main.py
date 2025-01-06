@@ -6,7 +6,7 @@ import logging
 import platform
 import json
 import time
-import vevor
+import dh
 import os
 import sys
 
@@ -22,7 +22,7 @@ device_name = os.environ["DEVICE_NAME"]
 device_manufacturer = (
     os.environ["DEVICE_MANUFACTURER"]
     if os.environ.get("DEVICE_MANUFACTURER")
-    else "Vevor"
+    else "DH"
 )
 device_model = os.environ["DEVICE_MODEL"]
 device_id = "BYD-" + ble_mac_address.replace(":", "").upper()  # auto
@@ -335,7 +335,7 @@ def on_disconnect(client, userdata, rc):
 
 logger = init_logger()
 client = init_client()
-vdh = vevor.DieselHeater(ble_mac_address, ble_passkey)
+vdh = dh.DieselHeater(ble_mac_address, ble_passkey)
 rc = client.loop_start()
 if rc != 0:
     logger.debug("Cannot connect to MQTT broker (error %d)" % rc)
