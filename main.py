@@ -336,7 +336,7 @@ def on_disconnect(client, userdata, rc):
 logger = init_logger()
 client = init_client()
 vdh = vevor.DieselHeater(ble_mac_address, ble_passkey)
-rc = client.loop_start(timeout=1.0)
+rc = client.loop_start()
 if rc != 0:
     logger.debug("Cannot connect to MQTT broker (error %d)" % rc)
 
