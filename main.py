@@ -59,7 +59,7 @@ def init_logger():
 
 
 def init_client():
-    client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, client_id=device_id, clean_session=True)
+    client = mqtt.Client(client_id=device_id, clean_session=True, callback_api_version=mqtt.CallbackAPIVersion.VERSION2)
     if mqtt_username and len(mqtt_username) and mqtt_password and len(mqtt_password):
         logger.info(
             f"Connecting to MQTT broker {mqtt_username}@{mqtt_host}:{mqtt_port}"
