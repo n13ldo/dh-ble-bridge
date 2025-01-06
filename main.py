@@ -329,8 +329,8 @@ def on_disconnect(client, userdata, rc):
     """
     This callback is called when the client disconnects from the broker.
     An rc (result code) different from 0 usually indicates an unexpected disconnect.
-    """
-    print(f"Disconnected from broker. rc = {rc}")    
+    """  
+    logger.debug(f"Disconnected from broker. rc = {rc}")
 
 
 logger = init_logger()
