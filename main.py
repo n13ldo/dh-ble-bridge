@@ -349,7 +349,7 @@ def on_publish(client, userdata, mid):
     This callback is called when a publish message has completed delivery to the broker.
     You can track message IDs (mid) here if you need to confirm each publish.
     """
-    logger.debug(f"on_publish() mid = {mid}")
+    #logger.debug(f"on_publish() mid = {mid}")
 
 logger = init_logger()
 client = init_client()
