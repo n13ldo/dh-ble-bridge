@@ -280,7 +280,7 @@ def dispatch_result(result):
         except Exception as e:
             logger.debug(f"Exception while client.publish() = {e}")
 
-        client.publish(f"{mqtt_prefix}/room_temperature/state", result.cab_temperature)
+        client.publish(f"{mqtt_prefix}/room_temperature/state", result.room_temperature)
         if result.running_mode:
             client.publish(f"{mqtt_prefix}/mode/av", "online")
             client.publish(f"{mqtt_prefix}/mode/state", modes[result.running_mode - 1])
@@ -289,7 +289,7 @@ def dispatch_result(result):
             client.publish(f"{mqtt_prefix}/voltage/state", result.supply_voltage)
             client.publish(f"{mqtt_prefix}/altitude/state", result.altitude)
             client.publish(
-                f"{mqtt_prefix}/heater_temperature/state", result.case_temperature
+                f"{mqtt_prefix}/heater_temperature/state", result.engine_temperature
             )
             client.publish(f"{mqtt_prefix}/level/state", result.set_level)
             if result.set_temperature is not None:

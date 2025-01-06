@@ -81,8 +81,8 @@ class _DieselHeaterNotification:
                 case _:
                     raise RuntimeError("Unrecognized running mode")
             self.supply_voltage = (256 * _u8tonumber(je[12]) + _u8tonumber(je[11])) / 10
-            self.case_temperature = _UnsignToSign(256 * je[14] + je[13])
-            self.cab_temperature = _UnsignToSign(256 * je[16] + je[15])
+            self.engine_temperature = _UnsignToSign(256 * je[14] + je[13])
+            self.room_temperature = _UnsignToSign(256 * je[16] + je[15])
             self.md = 1
         elif (170 == fb) and (102 == sb):
             self.running_state = _u8tonumber(je[3])
@@ -105,8 +105,8 @@ class _DieselHeaterNotification:
                 case _:
                     raise RuntimeError("Unrecognized running mode")
             self.supply_voltage = (256 * _u8tonumber(je[12]) + _u8tonumber(je[11])) / 10
-            self.case_temperature = _UnsignToSign(256 * je[14] + je[13])
-            self.cab_temperature = _UnsignToSign(256 * je[16] + je[15])
+            self.engine_temperature = _UnsignToSign(256 * je[14] + je[13])
+            self.room_temperature = _UnsignToSign(256 * je[16] + je[15])
             self.md = 3
         elif (170 == fb) and (136 == sb):
             raise RuntimeError("Unsupported payload (todo)")
