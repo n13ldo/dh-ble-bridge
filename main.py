@@ -69,9 +69,9 @@ def init_client():
         logger.info(f"Connecting to MQTT broker {mqtt_host}:{mqtt_port}")
     client.on_connect = on_connect
     client.on_message = on_message
-    client.connect(mqtt_host, port=mqtt_port)
     client.on_disconnect = on_disconnect
     client.on_publish = on_publish
+    client.connect(mqtt_host, port=mqtt_port)
     return client
 
 
