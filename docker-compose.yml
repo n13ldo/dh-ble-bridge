@@ -1,7 +1,7 @@
 version: '3.6'
 services:
-    vevor-ble-bridge:
-        image: vevor-ble-bridge
+    dh-ble-bridge:
+        image: dh-ble-bridge
         network_mode: host
         restart: unless-stopped
         cap_add:

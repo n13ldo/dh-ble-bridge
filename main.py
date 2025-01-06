@@ -46,7 +46,7 @@ run = True
 modes = ["Power Level", "Temperature"]
 
 def init_logger():
-    logger = logging.getLogger("vevor-ble-bridge")
+    logger = logging.getLogger("dh-ble-bridge")
     logger.setLevel(logging.DEBUG)
     ch = logging.StreamHandler()
     ch.setLevel(logging.DEBUG)
@@ -70,6 +70,7 @@ def init_client():
     client.on_connect = on_connect
     client.on_message = on_message
     client.connect(mqtt_host, port=mqtt_port)
+    client.on_disconnect = on_disconnect
     return client
 
 
@@ -80,7 +81,7 @@ def get_device_conf():
         "manufacturer": device_manufacturer,
         "model": device_id,
         "via_device": via_device,
-        "sw": "Vevor-BLE-Bridge",
+        "sw": "dh-BLE-Bridge",
     }
     return conf
 
@@ -324,11 +325,20 @@ def on_message(client, userdata, msg):
         dispatch_result(vdh.set_mode(modes.index(msg.payload.decode('ascii')) + 1))    
     logger.debug(f"{msg.topic} {str(msg.payload)}")
 
+def on_disconnect(client, userdata, rc):
+    """
+    This callback is called when the client disconnects from the broker.
+    An rc (result code) different from 0 usually indicates an unexpected disconnect.
+    """
+    print(f"Disconnected from broker. rc = {rc}")    
+
 
 logger = init_logger()
 client = init_client()
 vdh = vevor.DieselHeater(ble_mac_address, ble_passkey)
-client.loop_start()
+rc = client.loop_start(timeout=1.0)
+if rc != 0:
+    logger.debug("Cannot connect to MQTT broker (error %d)" % rc)
 
 while run:
     result = vdh.get_status()
