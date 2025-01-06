@@ -71,6 +71,7 @@ def init_client():
     client.on_message = on_message
     client.connect(mqtt_host, port=mqtt_port)
     client.on_disconnect = on_disconnect
+    client.on_publish = on_publish
     return client
 
 
@@ -343,6 +344,12 @@ def on_disconnect(client, userdata, rc):
     """  
     logger.debug(f"Disconnected from broker. rc = {rc}")
 
+def on_publish(client, userdata, mid):
+    """
+    This callback is called when a publish message has completed delivery to the broker.
+    You can track message IDs (mid) here if you need to confirm each publish.
+    """
+    logger.debug(f"on_publish() mid = {mid}")
 
 logger = init_logger()
 client = init_client()
